@@ -49,4 +49,4 @@ LIBS +=-L isystem/usr/lib -lpoppler-qt5
 
 INCLUDEPATH +=-isystem /usr/include/poppler/qt5
 
-DEPENDPATH += c:/SailfishOS/mersdk/targets/SailfishOS-2.2.0.29-i486/usr/include/poppler/qt5
+DEPENDPATH += /Users/jdev/SailfishOS/mersdk/targets/SailfishOS-3.0.2.8-armv7hl/usr/include/poppler/qt5

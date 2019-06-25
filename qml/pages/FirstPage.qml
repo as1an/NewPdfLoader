@@ -4,29 +4,44 @@ import Sailfish.Pickers 1.0
 
 Page {
     id: pageOne
-
-
-
-    // The effective value will be restricted by ApplicationWindow.allowedOrientations
     allowedOrientations: Orientation.All
 
     SilicaFlickable {
         anchors.fill:parent
+        contentHeight: column.height
 
-        // Добавить заголовок с названием приложения
+        Column {
+            id: column
+            width: parent.width
+            spacing: 20
 
+            PageHeader { title: "NewPdfLoader"}
 
-        //Добавить объект типа Label с текстом "Last file name:"
+            Label { text: "Last file name:" }
 
+            Label {
+                width: parent.width - 2 * x
+                x : Theme.horizontalPageMargin
+                wrapMode: Text.WordWrap
+                text: file.selectedFile ? file.selectedFile : "No file name"
+            }
 
-        // Добавить объект типа Label с названием последнего файла. Использовать свойство selectedFile элемента file.
+            FilePickerPage {
+                id: filePickerPage
+                nameFilters: [ '*.pdf' ]
 
+                onSelectedContentPropertiesChanged: {
+                    file.selectedFile = selectedContentProperties.filePath
+                    pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+                }
+            }
 
-        // Добавить объект типа FilePickerPage для загрузки страницы выбора файлов с расширением .pdf. При выборе файла в стек страниц загружается SecondPage.qml
+            Button {
+                text: "Load pdf"
+                anchors.horizontalCenter: parent.horizontalCenter
 
-
-        //Добавить объект типа Button. При нажатии на кнопку в стек страниц загружается FilePickerPage
-
-
+                onClicked: pageStack.push(filePickerPage)
+            }
+        }
     }
 }
